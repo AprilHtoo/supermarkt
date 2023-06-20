@@ -32,6 +32,8 @@ $database->closeConnection();
 <body>
 <div class="container">
     <a href="../index.php" class="home-link">Home</a><br>
+    <h2>Verkooporders inzien en bewerken</h2>
+    <hr>
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

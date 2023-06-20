@@ -1,4 +1,3 @@
-<a href="../index.php">Home</a><br>
 <?php
 include_once "../class/db_config.php";
 include_once "../class/DatabaseConnection.php";
@@ -7,22 +6,34 @@ include_once "../class/ProductHandler.php";
 $productQueryHandler = new ProductHandler($database->getConnection());
 $products = $productQueryHandler->getProducts();
 
+$database->closeConnection();
+?>
 
-echo '<table class="artikel-table">';
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Overview</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/overview.css">
+    <script type="text/javascript" src="../assets/api/js/getIdentification.js"></script>
+</head>
+<body>
+<a href="../index.php" class="home-link">Home</a><br>
+<div class="container">
+    <h2>Artikelen overzicht</h2>
+    <?php
+    echo '<table class="order-table">';
     echo '<tr>';
-    echo '<th>Artikel ID</th>';
-    echo '<th>Leveranciers ID</th>';
-    echo '<th>Beschrijving</th>';
-    echo '<th>Aantal voorraad</th>';
-    echo '<th>Min Aantal</th>';
-    echo '<th>Max Aantal</th>';
-    //echo '<th>Actions</th>';
+    echo '<th>Art ID</th>';
+    echo '<th>Lev ID</th>';
+    echo '<th>Omschrijving</th>';
+    echo '<th>Voorraad</th>';
+    echo '<th>Min Voorraad</th>';
+    echo '<th>Max Voorraad</th>';
+    echo '<th>Actions</th>';
     echo '</tr>';
 
-// Output the results
-foreach ($products as $product) {
-   // echo "artId: {$product['artId']}<br> levId: {$product['levId']}<br> artOmschrijving: {$product['artOmschrijving']}<br> artVoorraad: {$product['artVoorraad']}<br> artMinVoorraad: {$product['artMinVoorraad']}<br> artMaxVoorraad: {$product['artMaxVoorraad']}<br>";
-    echo '<tr>';
+    foreach ($products as $product) {
+        echo '<tr>';
         echo '<td>' . $product['artId'] . '</td>';
         echo '<td>' . $product['levId'] . '</td>';
         echo '<td>' . $product['artOmschrijving'] . '</td>';
@@ -30,13 +41,14 @@ foreach ($products as $product) {
         echo '<td>' . $product['artMinVoorraad'] . '</td>';
         echo '<td>' . $product['artMaxVoorraad'] . '</td>';
         echo '<td>';
-        echo '<button class="button button-update" onclick="openUpdateModal(' . $product['artId'] . ')">Update</button>';
-        echo '<button class="button button-delete" onclick="deleteArtikel(' . $product['artId'] . ')">Delete</button>';
+//        echo '<button class="button button-update" onclick="openUpdateModal(' . $product['artId'] . ')">Update</button>';
+        echo '<button class="button button-delete" onclick="deleteProduct(' . $product['artId'] . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
-
+    }
     echo '</table>';
-    echo '<br>';
-
-}
+    ?>
+</div>
+</body>
+</html>
 

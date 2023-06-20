@@ -21,7 +21,8 @@ $database->closeConnection();
 <body>
 <a href="../index.php" class="home-link">Home</a><br>
 <div class="container">
-    <h2>Supplier overzicht</h2>
+    <h2>Leveranciers inzien</h2>
+    <hr>
     <?php
     echo '<table class="order-table">';
     echo '<tr>';

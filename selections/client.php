@@ -102,38 +102,13 @@ $database->closeConnection();
 
 
     </script>
-    <style>
-        #search-input {
-            width: 300px;
-            padding: 5px;
-            font-size: 16px;
-        }
 
-        #search-results {
-            position: absolute;
-            width: 300px;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            display: none;
-        }
-
-        #search-results .result-item {
-            padding: 5px;
-            cursor: pointer;
-        }
-
-        #search-results .result-item:hover {
-            background-color: #f5f5f5;
-        }
-
-    </style>
 </head>
 <body>
 <a href="../index.php" class="home-link">Home</a><br>
 <div class="container">
-    <h2>Klanten Overzicht</h2>
+    <h2>Klanten inzien</h2>
+    <hr>
 
     <div class="search-container">
         <select id="search-option">
