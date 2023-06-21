@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 07 jun 2023 om 20:00
--- Serverversie: 8.0.28
--- PHP-versie: 8.1.2
+-- Gegenereerd op: 21 jun 2023 om 14:35
+-- Serverversie: 10.4.24-MariaDB
+-- PHP-versie: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,23 +28,24 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `artikelen` (
-  `artId` int NOT NULL,
-  `levId` int DEFAULT NULL,
+  `artId` int(11) NOT NULL,
+  `levId` int(11) DEFAULT NULL,
   `artOmschrijving` varchar(12) NOT NULL,
   `artInkoop` decimal(2,0) DEFAULT NULL,
   `artVerkoop` decimal(2,0) DEFAULT NULL,
-  `artVoorraad` int NOT NULL,
-  `artMinVoorraad` int NOT NULL,
-  `artMaxVoorraad` int NOT NULL,
-  `artLocatie` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `artVoorraad` int(11) NOT NULL,
+  `artMinVoorraad` int(11) NOT NULL,
+  `artMaxVoorraad` int(11) NOT NULL,
+  `artLocatie` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `artikelen`
 --
 
 INSERT INTO `artikelen` (`artId`, `levId`, `artOmschrijving`, `artInkoop`, `artVerkoop`, `artVoorraad`, `artMinVoorraad`, `artMaxVoorraad`, `artLocatie`) VALUES
-(1, 1, 'appel', NULL, NULL, 200, 100, 1000, NULL);
+(1, 1, 'appel', NULL, NULL, 200, 100, 1000, NULL),
+(3, 4, 'Worst', NULL, NULL, 15, 100, 300, NULL);
 
 -- --------------------------------------------------------
 
@@ -53,21 +54,22 @@ INSERT INTO `artikelen` (`artId`, `levId`, `artOmschrijving`, `artInkoop`, `artV
 --
 
 CREATE TABLE `inkooporders` (
-  `inkOrdId` int NOT NULL,
-  `Artikelen_artId` int NOT NULL,
-  `Leveranciers_levId` int NOT NULL,
+  `inkOrdId` int(11) NOT NULL,
+  `Artikelen_artId` int(11) NOT NULL,
+  `Leveranciers_levId` int(11) NOT NULL,
   `inkOrdDatum` date DEFAULT NULL,
-  `inkOrdBestAantal` int DEFAULT NULL,
-  `inkOrdStatus` tinyint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `inkOrdBestAantal` int(11) DEFAULT NULL,
+  `inkOrdStatus` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `inkooporders`
 --
 
 INSERT INTO `inkooporders` (`inkOrdId`, `Artikelen_artId`, `Leveranciers_levId`, `inkOrdDatum`, `inkOrdBestAantal`, `inkOrdStatus`) VALUES
-(1, 1, 1, '2023-06-07', 10, 1),
-(2, 1, 1, '2023-06-07', 10, 1);
+(3, 1, 1, '2023-06-20', 100, 1),
+(4, 1, 1, '2023-06-21', 200, 1),
+(5, 3, 4, '2023-06-21', 300, 1);
 
 -- --------------------------------------------------------
 
@@ -76,25 +78,25 @@ INSERT INTO `inkooporders` (`inkOrdId`, `Artikelen_artId`, `Leveranciers_levId`,
 --
 
 CREATE TABLE `klanten` (
-  `klantId` int NOT NULL,
+  `klantId` int(11) NOT NULL,
   `klantNaam` varchar(20) DEFAULT NULL,
   `klantEmail` varchar(30) NOT NULL,
   `klantAdres` varchar(30) NOT NULL,
   `klantPostcode` varchar(6) DEFAULT NULL,
   `klantWoonplaats` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klanten`
 --
 
 INSERT INTO `klanten` (`klantId`, `klantNaam`, `klantEmail`, `klantAdres`, `klantPostcode`, `klantWoonplaats`) VALUES
-(1, 'Jahden', 'test@live.nl', 'test 24', '1234ZA', 'Rotterdam'),
-(2, 'test', 'teste@live.nl', 'test', '2348dc', 'RTortder'),
+(1, 'haaha', 'test@live.nl', 'test 24', '1234ZA', 'Rotterdam'),
 (3, 'test', 'teste@live.nl', 'test', '2348dc', 'RTortder'),
-(4, 'Hallo', 'Halleo@hotmail.com', 'Stuitenweg', '2043ZS', 'Hoofddorp'),
 (5, 'Kayra', 'kayra@live.nl', 'kayrahuuis', '2334WE', 'Tilburg'),
-(6, 'Hendrick', 'Hendrick@gmail.com', 'Waddenweg 1', '2134WA', 'Scheveningen');
+(6, 'Hendrick', 'Hendrick@gmail.com', 'Waddenweg 1', '2134WA', 'Scheveningen'),
+(7, 'John', 'John@test.com', 'Johnlaan 10', '1234 A', 'Rotterdam'),
+(10, 'Bianca', 'Bianca@test.com', 'Biancalaan 364', '1234DR', 'Amsterdam');
 
 -- --------------------------------------------------------
 
@@ -103,21 +105,22 @@ INSERT INTO `klanten` (`klantId`, `klantNaam`, `klantEmail`, `klantAdres`, `klan
 --
 
 CREATE TABLE `leveranciers` (
-  `levId` int NOT NULL,
+  `levId` int(11) NOT NULL,
   `levNaam` varchar(15) NOT NULL,
-  `levContact` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `levContact` varchar(30) DEFAULT NULL,
   `levEmail` varchar(30) NOT NULL,
   `levAdres` varchar(30) DEFAULT NULL,
   `levPostcode` varchar(6) DEFAULT NULL,
   `levWoonplaats` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `leveranciers`
 --
 
 INSERT INTO `leveranciers` (`levId`, `levNaam`, `levContact`, `levEmail`, `levAdres`, `levPostcode`, `levWoonplaats`) VALUES
-(1, 'Pink Lady', 'Grégoire Van den Ostende', 'info@breaking-news.be', 'Louizalaan 367', '1050BE', 'Brussels');
+(1, 'Pink Lady', 'Grégoire Van den Ostende', 'info@breaking-news.be', 'Louizalaan 367', '1050BE', 'Brussels'),
+(4, 'stegeman', 'idk', 'stegeman@test.com', 'Watlan 12', '3241 A', 'Domdorp');
 
 -- --------------------------------------------------------
 
@@ -126,25 +129,26 @@ INSERT INTO `leveranciers` (`levId`, `levNaam`, `levContact`, `levEmail`, `levAd
 --
 
 CREATE TABLE `verkooporders` (
-  `verOrdId` int NOT NULL,
-  `Klanten_klantId` int NOT NULL,
-  `Artikelen_artId` int NOT NULL,
+  `verOrdId` int(11) NOT NULL,
+  `Klanten_klantId` int(11) NOT NULL,
+  `Artikelen_artId` int(11) NOT NULL,
   `verOrdDatum` date DEFAULT NULL,
-  `verOrdBestAantal` int DEFAULT NULL,
-  `verOrdStatus` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `verOrdBestAantal` int(11) DEFAULT NULL,
+  `verOrdStatus` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `verkooporders`
 --
 
 INSERT INTO `verkooporders` (`verOrdId`, `Klanten_klantId`, `Artikelen_artId`, `verOrdDatum`, `verOrdBestAantal`, `verOrdStatus`) VALUES
-(3, 3, 1, '2023-05-31', 10, 1),
-(5, 2, 1, '2023-06-07', 2, 3),
-(7, 3, 1, '2023-06-07', 11, 1),
-(8, 1, 1, '2023-06-07', 12, 1),
-(9, 1, 1, '2023-06-07', 12, 1),
-(10, 6, 1, '2023-06-07', 123, 1);
+(3, 3, 1, '2023-05-31', 10, 3),
+(8, 1, 1, '2023-06-07', 12, 2),
+(10, 6, 1, '2023-06-07', 123, 1),
+(11, 1, 1, '2023-06-13', 123, 1),
+(12, 6, 1, '2023-06-13', 555, 2),
+(13, 7, 1, '2023-06-20', 55, 1),
+(15, 7, 1, '2023-06-21', 10, 2);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -197,31 +201,31 @@ ALTER TABLE `verkooporders`
 -- AUTO_INCREMENT voor een tabel `artikelen`
 --
 ALTER TABLE `artikelen`
-  MODIFY `artId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `artId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `inkooporders`
 --
 ALTER TABLE `inkooporders`
-  MODIFY `inkOrdId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inkOrdId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT voor een tabel `klanten`
 --
 ALTER TABLE `klanten`
-  MODIFY `klantId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `klantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT voor een tabel `leveranciers`
 --
 ALTER TABLE `leveranciers`
-  MODIFY `levId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `levId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `verkooporders`
 --
 ALTER TABLE `verkooporders`
-  MODIFY `verOrdId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `verOrdId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Beperkingen voor geëxporteerde tabellen

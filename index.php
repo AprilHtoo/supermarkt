@@ -8,6 +8,7 @@ include_once "class/DatabaseConnection.php";
 <html>
 <head>
     <title>New Client Form</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
     <div class="nav">

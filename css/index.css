@@ -1,0 +1,20 @@
+hr{
+    margin-bottom: 25px;
+}
+.nav-bar{
+    display: block;
+    background-color: red;
+    padding: 25px;
+}
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+}
+a:hover {
+    background-color: #ddd;
+    opacity: 0.5;
+    color: black;
+}
+
